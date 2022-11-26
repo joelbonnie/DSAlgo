@@ -113,6 +113,7 @@ int deleteFirst(){
     int k;
     NODE *del=head; //node to be deleted
     head=head->next; //head is updated to succeeding node
+    head->prev=NULL;
     k=del->data; //return value is assigned
     free(del); //memory deallocated
     return k; 
