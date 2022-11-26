@@ -242,7 +242,8 @@ void main(){
             case 6:
                 printf("\nEnter index of node to be deleted: ");
                 scanf("%d", &p);
-                deletePos(p);
+                e=deletePos(p);
+                printf("Deleted element: %d", e);
                 break;
             case 7:
                 reverse();
