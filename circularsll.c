@@ -1,29 +1,15 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-/*
-README
-This program manipulates a single global list with the help of a head pointer
-Included functions:
-1. display
-2. insertLast
-3. insertFirst
-4. insertPos
-5. deleteFirst
-6. deleteLast
-7. deletePos
-8. reverse
-*/
 
-//declaring singly linked list user defined structure
-
-typedef struct SLL{
-    int data;  
-    struct SLL *next;
+//declaring structure
+//same node structure as singly linked list
+typedef struct CSLL{
+    int data; //data 
+    struct CSLL *next; //pointer to next node
 }NODE;
 
-
-NODE *head=NULL; //global declaration of head
+NODE *head=NULL;
 
 void display(){
     /*
@@ -41,12 +27,11 @@ void display(){
     do{ //start traversal
         printf("%d\t", temp->data);
         temp=temp->next;
-    }while(temp->next!=NULL); //stops execution but last node is not printed
+    }while(temp->next!=head); //stops execution but last node is not printed
 
-    printf("%d\n", temp->data); //last node is printed
+    printf("%d\t%d\n", temp->data, temp->next->data); //last node is printed
     return; //function end
 }
-
 
 void insertLast(int k){
     /*
@@ -60,21 +45,23 @@ void insertLast(int k){
     newnode = (NODE*)malloc(sizeof(NODE)); //using dynamic memory allocation to allot slot for node
     //also, the newly assigned memory is typecasted to type NODE using (NODE*)
     newnode->data = k; //assigning data as provided by the user
-    newnode->next = NULL; //insertion at last => next is NULL
     if(head==NULL){ //empty list
         head=newnode; //head is assigned directly to newnode
+        head->next=newnode;
     }
     else{ //nonempty list
         NODE *temp=head; //helper pointer to help traverse to end of list
-        while(temp->next!=NULL){ 
+        while(temp->next!=head){ 
             //loop enables traveral to final node
             temp=temp->next;
         }
-        temp->next=newnode; //final node points to newnode which is the new final node with next=NULL
+        newnode->next=head;
+        temp->next=newnode; //final node points to newnode which is the new final node with next=head
     }
     printf("\nInsertion successful"); //only prints if insertion is successful
     return; //function end
 }
+
 
 void insertFirst(int k){
     /*
@@ -89,30 +76,15 @@ void insertFirst(int k){
     newnode->next=head; 
     /*since newnode is inserted at the very beginning, its next element is the node 
     currently pointed to by head*/
-    head=newnode; //head is replaced by newnode 
-}
-
-
-void insertPos(int k, int pos){
-    /*
-    params: 
-        int k: element to be inserted
-        int pos: position at which element is to be inserted
-    desc:
-        the element at pos is replaced by the entered element. 
-        All succeeding elements are pushed forward by one index
-        The memory location of the pushed elements remain unchanged
-    */
-    NODE *newnode = (NODE *)malloc(sizeof(NODE)), *temp=head; //declarations
-    newnode->data=k; //data is assigned to newnode
-    int i;
-    for(i=0; i<pos-1; i++){ //loop to bring temp to the element to index pos-1
+    NODE *temp=head;
+    while(temp->next != head){
         temp=temp->next;
     }
-    newnode->next = temp->next; // newnode.next is updated to temp.next
-    temp->next = newnode;   //newnode-1.next is updated to newnode
-    printf("\nInsertion successful");
+    temp->next=newnode;
+    head=newnode; //head is replaced by newnode
 }
+
+
 
 int deleteFirst(){
     /*
@@ -126,6 +98,11 @@ int deleteFirst(){
     NODE *del;
     del=head; //del points to first element
     head=head->next; //head now points to the second element
+    NODE *temp=head;
+    while(temp->next != del){
+        temp=temp->next;
+    }
+    temp->next=head;
     free(del); //first element is deallocated
     return k; //deleted data is returned
 }
@@ -138,70 +115,25 @@ int deleteLast(){
         traverses to the last node, deletes it, deallocates alloted memory
     */
     NODE *temp=head; //helper node
-    while(temp->next->next != NULL){ //traverses to second last element
+    while(temp->next->next != head){ //traverses to second last element
         temp=temp->next;
     }
     int k;
     k = temp->next->data; //stores data of last node
     free(temp->next); //deletes last node
-    temp->next=NULL; //sets next value of second last element to null
+    temp->next=head; //sets next value of second last element to head
     return k; //returns deleted value
 }
 
-int deletePos(int pos){
-    /*
-    params: 
-        int p: position of element to be deleted
-    desc:
-        traverses to element to be deleted
-        reassigns next value of previous node
-        deallocates deleted node
-    */
-    int i;
-    NODE *temp=head; //helper node
-    for(i=0; i<pos-1; i++){ //traverses the node right before node to be deleted
-        temp=temp->next;
-    }
-    int k;
-    k = temp->next->data; //storing data of node to be deleted
-    NODE *del=temp->next; //storing node to be deleted
-    temp->next = del->next; //removing link to deleted node
-    free(del); //deallocating memory used by deleted node
-    return k; //returning deleted value
-}
 
-void reverse(){
-    /*
-    params: NIL
-    desc:
-        Iterative approach that simply reverses all the links
-        Memory locations of all nodes stays the same
-    */
-    NODE *prevnode=NULL, *currentnode, *nextnode; 
-    //prevnode init to NULL because first node has no previous node
-    //current node points to node being manipulated
-    //next node points to succeeding node since its link will be destoyed
-    currentnode=nextnode=head;
-    while(nextnode!=NULL){ //breaks when last element is reached
-        nextnode=currentnode->next; //pointing to succeeding node
-        currentnode->next=prevnode; //link reversed
-        prevnode=currentnode; //prevnode updated
-        currentnode=nextnode; //currentnode updated
-    }
-    head=prevnode; //last element of old list is now head
-
-}
 
 void options(){
         printf("\n----------------------------------------------------------------------");
         printf("\n\nOptions: ");
         printf("\n1. Insert a node at the end");
         printf("\n2. Insert a node at the beginning");
-        printf("\n3. Insert a node at entered index");
         printf("\n4. Delete first node");
         printf("\n5. Delete last node");
-        printf("\n6. Delete node at entered index");
-        printf("\n7. Reverse current list");
         printf("\n8. Display current list");
         printf("\n9. Terminate\n");
         printf("\nEnter your choice: ");
@@ -223,13 +155,6 @@ void main(){
                 scanf("%d",&e);
                 insertFirst(e);
                 break;
-            case 3:
-                printf("Enter element to be inserted: ");
-                scanf("%d", &e);
-                printf("\nEnter position to insert at: ");
-                scanf("%d", &p);
-                insertPos(e,p);
-                break;
             case 4:
                 e=deleteFirst();
                 printf("Deleted element: %d", e);
@@ -237,15 +162,6 @@ void main(){
             case 5:
                 e=deleteLast();
                 printf("Deleted element: %d", e);
-                break;
-            case 6:
-                printf("\nEnter index of node to be deleted: ");
-                scanf("%d", &p);
-                deletePos(p);
-                break;
-            case 7:
-                reverse();
-                printf("\nList reversed");
                 break;
             case 8:
                 display();
