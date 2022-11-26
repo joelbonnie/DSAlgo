@@ -12,6 +12,7 @@ Included functions:
 5. deleteFirst
 6. deleteLast
 7. deletePos
+8. reverse
 */
 
 //declaring singly linked list user defined structure
