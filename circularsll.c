@@ -1,6 +1,18 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+/*
+This program only contains the functions for circular singly linked list 
+that are different from singly linked list. All others have been omitted 
+cause I'm lazy asf
+Included functions:
+1. insertFirst
+2. insertLast
+3. deleteFirst
+4. deleteLast
+5. display
+
+*/
 
 //declaring structure
 //same node structure as singly linked list
@@ -29,7 +41,7 @@ void display(){
         temp=temp->next;
     }while(temp->next!=head); //stops execution but last node is not printed
 
-    printf("%d\t%d\n", temp->data, temp->next->data); //last node is printed
+    printf("%d\n", temp->data); //last node is printed
     return; //function end
 }
 
