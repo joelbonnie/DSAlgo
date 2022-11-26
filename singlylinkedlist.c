@@ -13,6 +13,7 @@ Included functions:
 6. deleteLast
 7. deletePos
 8. reverse
+deletePos and insertPos do not work on first or last nodes
 */
 
 //declaring singly linked list user defined structure
@@ -240,6 +241,7 @@ void main(){
                 printf("Deleted element: %d", e);
                 break;
             case 6:
+                printf("\nCaution: This function will only work if the index is available in the existing list");
                 printf("\nEnter index of node to be deleted: ");
                 scanf("%d", &p);
                 e=deletePos(p);
