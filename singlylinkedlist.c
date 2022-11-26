@@ -224,6 +224,7 @@ void main(){
                 insertFirst(e);
                 break;
             case 3:
+                printf("\nCaution: This function will only work if the index is available in the existing list");
                 printf("Enter element to be inserted: ");
                 scanf("%d", &e);
                 printf("\nEnter position to insert at: ");
