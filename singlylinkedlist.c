@@ -5,7 +5,7 @@
 README
 This program manipulates a single global list with the help of a head pointer
 Included functions:
-1. display
+1. display **does not work if list has only one node
 2. insertLast
 3. insertFirst
 4. insertPos
@@ -225,7 +225,7 @@ void main(){
                 break;
             case 3:
                 printf("\nCaution: This function will only work if the index is available in the existing list");
-                printf("Enter element to be inserted: ");
+                printf("\nEnter element to be inserted: ");
                 scanf("%d", &e);
                 printf("\nEnter position to insert at: ");
                 scanf("%d", &p);

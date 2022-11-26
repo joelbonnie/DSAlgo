@@ -10,7 +10,7 @@ Included functions:
 2. insertLast
 3. deleteFirst
 4. deleteLast
-5. display
+5. display **does not work if list has only one node
 
 */
 
