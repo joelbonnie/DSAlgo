@@ -170,6 +170,27 @@ int deletePos(int pos){
     return k; //returning deleted value
 }
 
+void reverse(){
+    /*
+    params: NIL
+    desc:
+        Iterative approach that simply reverses all the links
+        Memory locations of all nodes stays the same
+    */
+    NODE *prevnode=NULL, *currentnode, *nextnode; 
+    //prevnode init to NULL because first node has no previous node
+    //current node points to node being manipulated
+    //next node points to succeeding node since its link will be destoyed
+    currentnode=nextnode=head;
+    while(nextnode!=NULL){ //breaks when last element is reached
+        nextnode=currentnode->next; //pointing to succeeding node
+        currentnode->next=prevnode; //link reversed
+        prevnode=currentnode; //prevnode updated
+        currentnode=nextnode; //currentnode updated
+    }
+    head=prevnode; //last element of old list is now head
+
+}
 
 void options(){
         printf("\n----------------------------------------------------------------------");
@@ -180,7 +201,8 @@ void options(){
         printf("\n4. Delete first node");
         printf("\n5. Delete last node");
         printf("\n6. Delete node at entered index");
-        printf("\n7. Display current list");
+        printf("\n7. Reverse current list");
+        printf("\n8. Display current list");
         printf("\n9. Terminate\n");
         printf("\nEnter your choice: ");
     }
@@ -220,6 +242,10 @@ void main(){
                 printf("\nEnter index of node to be deleted: ");
                 scanf("%d", &p);
                 deletePos(p);
+                break;
+            case 7:
+                reverse();
+                printf("\nList reversed");
                 break;
             case 8:
                 display();
