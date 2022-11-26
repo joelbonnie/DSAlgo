@@ -94,13 +94,13 @@ void insertPos(int k, int pos){
     NODE *newnode=(NODE *)malloc(sizeof(NODE)), *temp=head;
     newnode->data=k;
     int i;
-    for(i=0; i<pos-1; i++){
+    for(i=0; i<pos-1; i++){ //traversing to node at pos-1
         temp=temp->next;
     }
-    newnode->next=temp->next;
-    newnode->prev=temp;
-    temp->next->prev=newnode;
-    temp->next=newnode;
+    newnode->next=temp->next; //forward link 
+    newnode->prev=temp; //backward link
+    temp->next->prev=newnode; //updating backward link of succeeding node
+    temp->next=newnode; //updating forward link of preceding node
 }
 
 int deleteFirst(){
