@@ -141,7 +141,7 @@ int deleteLast(){
 
 void options(){
         printf("\n----------------------------------------------------------------------");
-        printf("\n\nOptions: ");
+        printf("\n\nCircular singly linked list operations: ");
         printf("\n1. Insert a node at the end");
         printf("\n2. Insert a node at the beginning");
         printf("\n4. Delete first node");

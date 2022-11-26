@@ -194,7 +194,7 @@ void reverse(){
 
 void options(){
         printf("\n----------------------------------------------------------------------");
-        printf("\n\nOptions: ");
+        printf("\n\nSingly linked list operations: ");
         printf("\n1. Insert a node at the end");
         printf("\n2. Insert a node at the beginning");
         printf("\n3. Insert a node at entered index");
