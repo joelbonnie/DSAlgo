@@ -17,8 +17,9 @@ deletePos and insertPos do not work on first or last nodes
 
 //declaring user defined structure for doubly linked list
 typedef struct DLL{
+    struct DLL *prev; //previous node
     int data; 
-    struct DLL *prev, *next; //pointers to previous and next nodes
+    struct DLL *next; //next node
 }NODE;
 
 NODE *head=NULL; //initialising head pointer
