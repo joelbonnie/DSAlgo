@@ -50,7 +50,6 @@ void display(){
         printf("%d \n", cq[i]);
     }
     printf("%d \n", cq[rear]);
-    
 }
 
 void main(){

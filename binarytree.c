@@ -1,12 +1,15 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-
-//user defined structure
+//user defined structure for binary tree
 typedef struct BTree{
     struct Btree *left; //left child
     int data; //data
     struct Btree *right; //right child
 }NODE;
 
-NODE *root=NULL; //empty tree initialised
+
+//initialising empty tree
+NODE *root=NULL; //global declaration
+
+
