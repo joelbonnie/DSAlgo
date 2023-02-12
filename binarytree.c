@@ -10,7 +10,8 @@ typedef struct BTree {
 }NODE;
 
 NODE *root = NULL; //initialising empty tree
-NODE *arr[SIZE];
+
+NODE *arr[SIZE]; //declaring stack for non-recursive traversal
 int top=-1;
 //stack functions start
 
@@ -56,21 +57,58 @@ void postorder(NODE *r){
 
 
 void preorderNonRecursive(NODE *r){
-	NODE* r1=r;
+	NODE* current=r;
 	while(1){
-		while(r1){
-			printf("%d\t", r1->data);
-			if(r1->right){
-				push(r1->right);
+		while(current){
+			printf("%d\t", current->data);
+			if(current->right){
+				push(current->right);
 			}
-			r1=r1->left;
+			current=current->left;
 		}
-		r1=pop();
-		if(!r1){
+		current=pop();
+		if(!current){
 			break;
 		}
 	}
 }
+
+void inorderNonRecursive(NODE *r){
+	NODE* current=r;
+	while(1){
+		while(current){
+			push(current);
+			current=current->left;
+		}
+		if(current==NULL && top!=-1){
+			current=pop();
+			printf("%d\t", current->data);
+			current=current->right;
+		}
+		if(current==NULL && top==-1){break;}
+	} 
+}
+
+
+// void postorderNonRecursive(NODE *r){
+// 	NODE *current=r;
+// 	while(1){
+// 		while(current){
+// 			push(current->right);
+// 			push(current);
+// 			current=current->left;
+// 		}
+// 		current=pop();
+// 		if(current->right && arr[top]==current->right){
+// 			push(current);
+// 			current=current->right;
+// 		}
+// 		else{
+// 			printf("%d\t", current->data);
+// 			current=NULL;
+// 		}
+// 	}
+// }
 
 
 void insert(int k){
@@ -129,7 +167,9 @@ int main(){
 		printf("\n\t3. Preorder traversal");
 		printf("\n\t4. Postorder traversal");
 		printf("\n\t5. Preorder Non Recursive traversal");
-		printf("\n\t7. Exit");
+		printf("\n\t6. Inorder Non Recursive traversal");
+		printf("\n\t7. Postorder Non Recursive traversal");
+		printf("\n\t8. Exit");
 		printf("\nEnter your choice: ");
 		scanf("%d", &opt);
 		switch(opt){
@@ -170,7 +210,23 @@ int main(){
 					preorderNonRecursive(root);
 				}
 				break;
-			case 7:
+			case 6:
+				if(root==NULL){
+					printf("\nEmpty Tree. Unable to traverse.");
+				}
+				else{
+					inorderNonRecursive(root);
+				}
+				break;
+			// case 7:
+			// 	if(root==NULL){
+			// 		printf("\nEmpty Tree. Unable to traverse.");
+			// 	}
+			// 	else{
+			// 		postorderNonRecursive(root);
+			// 	}
+			// 	break;
+			case 8:
 				printf("\nEnding Binary Tree Operations");
 				break;
 			default:
