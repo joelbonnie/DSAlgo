@@ -7,6 +7,7 @@ typedef struct BTree {
 	struct BTree *left; //left child
 	int data;
 	struct BTree *right; //right child
+	int flag;
 }NODE;
 
 NODE *root = NULL; //initialising empty tree
@@ -89,26 +90,35 @@ void inorderNonRecursive(NODE *r){
 	} 
 }
 
-
-// void postorderNonRecursive(NODE *r){
-// 	NODE *current=r;
-// 	while(1){
-// 		while(current){
-// 			push(current->right);
-// 			push(current);
-// 			current=current->left;
-// 		}
-// 		current=pop();
-// 		if(current->right && arr[top]==current->right){
-// 			push(current);
-// 			current=current->right;
-// 		}
-// 		else{
-// 			printf("%d\t", current->data);
-// 			current=NULL;
-// 		}
-// 	}
-// }
+void postorderNonRecursive(NODE *r){
+	NODE* current=r;
+	while(1){
+		while(current){
+			push(current);
+			if(current->right && current->right->flag!=1){
+				push(current->right);
+			}
+			if(current->left && current->left->flag!=1){
+				current=current->left;
+			}
+			else{
+				current=NULL;
+			}
+		}
+		current = pop();
+		printf("%d\t", current->data);
+		current->flag=1;
+		current=pop();
+		while(!current->right || current->right->flag==1){
+			printf("%d\t", current->data);
+			current->flag=1;
+			if(current->left && current->left->flag != 1){break;}
+			if(top != -1){current = pop();}
+			else {break;}
+		}
+		if(top == -1){ break;}
+	}
+}
 
 
 void insert(int k){
@@ -160,7 +170,7 @@ void insert(int k){
 //main begins
 int main(){
 	int opt=0,e;
-	while(opt != 7){
+	while(opt != 8){
 		printf("\n\nMenu: ");
 		printf("\n\t1. Insert an element");
 		printf("\n\t2. Inorder traversal");
@@ -218,14 +228,14 @@ int main(){
 					inorderNonRecursive(root);
 				}
 				break;
-			// case 7:
-			// 	if(root==NULL){
-			// 		printf("\nEmpty Tree. Unable to traverse.");
-			// 	}
-			// 	else{
-			// 		postorderNonRecursive(root);
-			// 	}
-			// 	break;
+			case 7:
+				if(root==NULL){
+					printf("\nEmpty Tree. Unable to traverse.");
+				}
+				else{
+					postorderNonRecursive(root);
+				}
+				break;
 			case 8:
 				printf("\nEnding Binary Tree Operations");
 				break;
