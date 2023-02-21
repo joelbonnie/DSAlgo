@@ -109,7 +109,7 @@ void postorderNonRecursive(NODE *r){
 		printf("%d\t", current->data);
 		current->flag=1;
 		current=pop();
-		while(!current->right || current->right->flag==1){
+		while((current->right && current->right->flag!=1) || current->left->flag == 1){
 			printf("%d\t", current->data);
 			current->flag=1;
 			if(current->left && current->left->flag != 1){break;}
