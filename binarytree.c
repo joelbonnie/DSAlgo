@@ -2,6 +2,20 @@
 #include <stdlib.h>
 #define SIZE 50
 
+
+/*
+Functions:
+insert()
+inorder()
+preorder()
+postorder()
+inorderNonRecursive()
+preorderNonRecursive()
+postorderNonRecursive()
+push()
+pop()
+*/
+
 //Binary tree functions begin
 typedef struct BTree 
 {
