@@ -3,7 +3,8 @@
 #define SIZE 50
 
 //Binary tree functions begin
-typedef struct BTree {
+typedef struct BTree 
+{
 	struct BTree *left; //left child
 	int data;
 	struct BTree *right; //right child
